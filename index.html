@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Câmera Traseira</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background: #000;
+      overflow: hidden;
+    }
+    video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  </style>
+</head>
+<body>
+  <video autoplay playsinline></video>
+  <script>
+    async function startRearCamera() {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({
+          video: { facingMode: { exact: "environment" } },
+          audio: false
+        });
+        document.querySelector('video').srcObject = stream;
+      } catch (err) {
+        alert("Erro ao acessar a câmera traseira:\n" + err.message);
+      }
+    }
+
+    startRearCamera();
+  </script>
+</body>
+</html>
